@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1pWXvD1rGOMcCQnavUieIvyoMZXE+57bTJYKAzi89wg=",
+  "Source": "Clerk-todolist-backend",
+  "BasePath": "_content/Clerk-todolist-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
