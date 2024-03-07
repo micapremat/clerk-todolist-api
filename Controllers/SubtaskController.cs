@@ -51,5 +51,53 @@ namespace Clerk_todolist_backend.Controllers
             }
 
         }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateTask(int id, [FromBody] SubtaskEditDTO subtaskEditDTO)
+        {
+            var subtaskEdit = await _dataContext.Subtask.FindAsync(id);
+            if (subtaskEdit == null)
+            {
+                return NotFound();
+            } else
+            {
+                subtaskEdit.Title = subtaskEditDTO.Title != null ? subtaskEditDTO.Title : subtaskEdit.Title;
+                subtaskEdit.Subtitle = subtaskEditDTO.Subtitle != null ? subtaskEditDTO.Subtitle : subtaskEdit.Subtitle;
+                subtaskEdit.Description = subtaskEditDTO.Description != null ? subtaskEditDTO.Description : subtaskEdit.Description;
+                subtaskEdit.Done = subtaskEditDTO.Done;
+                try
+                {
+                    await _dataContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "An unexpected error ocurred.");
+                }
+
+                return Ok();
+
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            try
+            {
+                var subtask = await _dataContext.Subtask.FindAsync(id);
+
+                if (subtask == null)
+                {
+                    return NotFound();
+                }
+                _dataContext.Subtask.Remove(subtask);
+                await _dataContext.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error ocurred.");
+            }
+        }
     }
 }
